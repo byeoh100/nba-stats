@@ -3,7 +3,8 @@ import axios from 'axios'
 import Table from 'react-bootstrap/Table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { Line } from "react-chartjs-2"
+import LineChart from './LineChart'
+
 
 function Player({ playerName }) {
     const [playerData, setPlayerData] = useState([])
@@ -20,13 +21,13 @@ function Player({ playerName }) {
         fetchData()
     }, [playerName])
 
+    console.log(playerData)
+
     const AbbrevTooltip = ({ id, children, title }) => (
         <OverlayTrigger delay={{ show: 100, hide: 200 }} overlay={<Tooltip id={id}>{title}</Tooltip>}>
             <th>{children}</th>
         </OverlayTrigger>
     )
-
-    console.log(playerData)
 
     return (
         <div>
@@ -81,6 +82,7 @@ function Player({ playerName }) {
                     </tbody>
                 </Table>
             </div>
+            <LineChart pData={playerData} />
         </div>
     )
 }

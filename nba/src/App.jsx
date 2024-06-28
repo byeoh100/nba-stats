@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import LightDarkMode from './LightDarkMode'
-import LineChart from './Test'
+import LineChart from './LineChart'
 
 function App() {
     const [reqPlayerName, setReqPlayerName] = useState('')
@@ -36,7 +36,6 @@ function App() {
                 </form>
                 <Player playerName={reqPlayerName} />
             </div>
-            <LineChart />
         </>
     )
 }
