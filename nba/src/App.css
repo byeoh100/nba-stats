@@ -11,3 +11,8 @@
   justify-content: center;
   width: 80vw;
 }
+
+.title {
+  display: flex;
+  justify-content: center;
+}

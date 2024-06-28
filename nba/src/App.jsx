@@ -4,19 +4,23 @@ import Player from './Player'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
+import LightDarkMode from './LightDarkMode'
+import LineChart from './Test'
 
 function App() {
     const [reqPlayerName, setReqPlayerName] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(e.target[0].value)
         setReqPlayerName(e.target[0].value)
     }
 
     return (
         <>
-            <h1>NBA STATS GETTER</h1>
+            <div className='title'>
+                <h1>NBA STATS GETTER</h1>
+                <LightDarkMode />
+            </div>
             <div className="main">
                 <form onSubmit={handleSubmit}>
                     <InputGroup className="mb-3">
@@ -32,6 +36,7 @@ function App() {
                 </form>
                 <Player playerName={reqPlayerName} />
             </div>
+            <LineChart />
         </>
     )
 }

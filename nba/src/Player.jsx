@@ -3,6 +3,7 @@ import axios from 'axios'
 import Table from 'react-bootstrap/Table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { Line } from "react-chartjs-2"
 
 function Player({ playerName }) {
     const [playerData, setPlayerData] = useState([])
@@ -19,9 +20,9 @@ function Player({ playerName }) {
         fetchData()
     }, [playerName])
 
-    const Link = ({ id, children, title }) => (
-        <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
-            <a href="#">{children}</a>
+    const AbbrevTooltip = ({ id, children, title }) => (
+        <OverlayTrigger delay={{ show: 100, hide: 200 }} overlay={<Tooltip id={id}>{title}</Tooltip>}>
+            <th>{children}</th>
         </OverlayTrigger>
     )
 
@@ -35,22 +36,23 @@ function Player({ playerName }) {
                     <thead>
                         <tr>
                             <th>Season</th>
-                            <th><Link title="Games played" id="t-1">GP</Link></th>
-                            <th><Link title="Points per game" id="t-1">PPG</Link></th>
-                            <th><Link title="Field goals/Field goal attempts" id="t-1">FG/FGA</Link></th>
+                            <AbbrevTooltip title="Games played" id="t-1">GP</AbbrevTooltip>
+                            <th>MIN</th>
+                            <AbbrevTooltip title="Field goals/attempts" id="t-1">FG/FGA</AbbrevTooltip>
                             <th>FG%</th>
-                            <th>3P/3PA</th>
+                            <AbbrevTooltip title="3 pointers/attempts" id="t-1">3P/3PA</AbbrevTooltip>
                             <th>3P%</th>
-                            <th>FT/FTA</th>
+                            <AbbrevTooltip title="Free throws/attempts" id="t-1">FT/FTA</AbbrevTooltip>
                             <th>FT%</th>
-                            <th>ORB</th>
-                            <th>DRB</th>
-                            <th>REB</th>
-                            <th>AST</th>
-                            <th>BLK</th>
-                            <th>STL</th>
-                            <th>PF</th>
-                            <th>TO</th>
+                            <AbbrevTooltip title="Offensive rebounds" id="t-1">ORB</AbbrevTooltip>
+                            <AbbrevTooltip title="Defensive rebounds" id="t-1">DRB</AbbrevTooltip>
+                            <AbbrevTooltip title="Rebounds" id="t-1">REB</AbbrevTooltip>
+                            <AbbrevTooltip title="Assists" id="t-1">AST</AbbrevTooltip>
+                            <AbbrevTooltip title="Blocks" id="t-1">BLK</AbbrevTooltip>
+                            <AbbrevTooltip title="Steals" id="t-1">STL</AbbrevTooltip>
+                            <AbbrevTooltip title="Personal fouls" id="t-1">PF</AbbrevTooltip>
+                            <AbbrevTooltip title="Turnovers" id="t-1">TO</AbbrevTooltip>
+                            <AbbrevTooltip title="Points per game" id="t-1">PPG</AbbrevTooltip>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +60,7 @@ function Player({ playerName }) {
                             <tr key={index}>
                                 <th>{stat?.season - 1}-{stat?.season - 2000}</th>
                                 <th>{stat?.games}</th>
-                                <th>{(stat?.PTS / stat?.games).toFixed(1)}</th>
+                                <th>{(stat?.minutes_played / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.field_goals / stat?.games).toFixed(1)}/{(stat?.field_attempts / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.field_percent * 100).toFixed(1)}</th>
                                 <th>{(stat?.three_fg / stat?.games).toFixed(1)}/{(stat?.three_attempts / stat?.games).toFixed(1)}</th>
@@ -73,6 +75,7 @@ function Player({ playerName }) {
                                 <th>{(stat?.STL / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.PF / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.TOV / stat?.games).toFixed(1)}</th>
+                                <th>{(stat?.PTS / stat?.games).toFixed(1)}</th>
                             </tr>
                         ))}
                     </tbody>
