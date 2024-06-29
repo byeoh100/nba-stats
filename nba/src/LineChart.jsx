@@ -9,23 +9,25 @@ function LineChart({ pData, category }) {
     console.log(pData, category, pDataset)
 
     useEffect(() => {
-        if (pData) {
-            setPDataset([])
+        if (pData && category.length > 0) {
             setPLabel(pData.map((stat) => (stat.season)).reverse())
             let dataset1 = {
                 label: "TEMP",
                 data: pData.map((stat) => (stat.PTS / stat.games).toFixed(1)).reverse()
             }
-            let dataCategory = [category.map((cat) => (
+            let dataCategory = category.map((cat) => ( // you need to push the obj to the array, not the new array
                 {
                     label : cat,
                     data : pData.map((stat) => (stat[cat] / stat.games).toFixed(1)).reverse()
                 }
-            ))]
-            setPDataset([dataCategory])
-            console.log(dataCategory)
+            ))
+            setPDataset(dataCategory)
+            console.log(pDataset)
         }
-    }, [pData])
+        else {
+            setPDataset([])
+        }
+    }, [pData, category])
 
     return (
         <Line
