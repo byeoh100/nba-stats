@@ -6,18 +6,24 @@ function LineChart({ pData, category }) {
     const [pLabel, setPLabel] = useState([])
     const [pDataset, setPDataset] = useState([])
 
-    console.log(pDataset)
+    console.log(pData, category, pDataset)
 
     useEffect(() => {
         if (pData) {
             setPDataset([])
-            console.log(pData)
             setPLabel(pData.map((stat) => (stat.season)).reverse())
-            let dataset = {
+            let dataset1 = {
                 label: "TEMP",
                 data: pData.map((stat) => (stat.PTS / stat.games).toFixed(1)).reverse()
             }
-            setPDataset([dataset])
+            let dataCategory = [category.map((cat) => (
+                {
+                    label : cat,
+                    data : pData.map((stat) => (stat[cat] / stat.games).toFixed(1)).reverse()
+                }
+            ))]
+            setPDataset([dataCategory])
+            console.log(dataCategory)
         }
     }, [pData])
 

@@ -9,25 +9,30 @@ import LineChart from './LineChart'
 function Player({ playerName }) {
     const [playerData, setPlayerData] = useState([])
     const [playerTeam, setPlayerTeam] = useState('')
+    const [graphData, setGraphData] = useState([])
 
     useEffect(() => {
-        setPlayerData(null)
         const fetchData = async () => {
             let firstRes = await axios.get(`https://nba-stats-db.herokuapp.com/api/playerdata/name/${playerName}`)
             setPlayerData(firstRes.data.results)
             setPlayerTeam(firstRes.data.results[0].team)
             console.log(playerData)
         }
+        if(playerName) {
+        setPlayerData(null)
         fetchData()
+        }
     }, [playerName])
-
-    console.log(playerData)
 
     const AbbrevTooltip = ({ id, children, title }) => (
         <OverlayTrigger delay={{ show: 100, hide: 200 }} overlay={<Tooltip id={id}>{title}</Tooltip>}>
-            <th>{children}</th>
+            <th onClick={() => {sendCatToGraph(id)}}>{children}</th>
         </OverlayTrigger>
     )
+
+    const sendCatToGraph = (category) => {
+        setGraphData([...graphData, category])
+    }
 
     return (
         <div>
@@ -37,23 +42,23 @@ function Player({ playerName }) {
                     <thead>
                         <tr>
                             <th>Season</th>
-                            <AbbrevTooltip title="Games played" id="t-1">GP</AbbrevTooltip>
+                            <AbbrevTooltip title="Games played" id="games">GP</AbbrevTooltip>
                             <th>MIN</th>
-                            <AbbrevTooltip title="Field goals/attempts" id="t-1">FG/FGA</AbbrevTooltip>
+                            <AbbrevTooltip title="Field goals/attempts" id="field_goals">FG/FGA</AbbrevTooltip>
                             <th>FG%</th>
-                            <AbbrevTooltip title="3 pointers/attempts" id="t-1">3P/3PA</AbbrevTooltip>
+                            <AbbrevTooltip title="3 pointers/attempts" id="three_fg">3P/3PA</AbbrevTooltip>
                             <th>3P%</th>
-                            <AbbrevTooltip title="Free throws/attempts" id="t-1">FT/FTA</AbbrevTooltip>
+                            <AbbrevTooltip title="Free throws/attempts" id="ft">FT/FTA</AbbrevTooltip>
                             <th>FT%</th>
-                            <AbbrevTooltip title="Offensive rebounds" id="t-1">ORB</AbbrevTooltip>
-                            <AbbrevTooltip title="Defensive rebounds" id="t-1">DRB</AbbrevTooltip>
-                            <AbbrevTooltip title="Rebounds" id="t-1">REB</AbbrevTooltip>
-                            <AbbrevTooltip title="Assists" id="t-1">AST</AbbrevTooltip>
-                            <AbbrevTooltip title="Blocks" id="t-1">BLK</AbbrevTooltip>
-                            <AbbrevTooltip title="Steals" id="t-1">STL</AbbrevTooltip>
-                            <AbbrevTooltip title="Personal fouls" id="t-1">PF</AbbrevTooltip>
-                            <AbbrevTooltip title="Turnovers" id="t-1">TO</AbbrevTooltip>
-                            <AbbrevTooltip title="Points per game" id="t-1">PPG</AbbrevTooltip>
+                            <AbbrevTooltip title="Offensive rebounds" id="ORB">ORB</AbbrevTooltip>
+                            <AbbrevTooltip title="Defensive rebounds" id="DRB">DRB</AbbrevTooltip>
+                            <AbbrevTooltip title="Rebounds" id="REB">REB</AbbrevTooltip>
+                            <AbbrevTooltip title="Assists" id="AST">AST</AbbrevTooltip>
+                            <AbbrevTooltip title="Blocks" id="BLK">BLK</AbbrevTooltip>
+                            <AbbrevTooltip title="Steals" id="STL">STL</AbbrevTooltip>
+                            <AbbrevTooltip title="Personal fouls" id="PF">PF</AbbrevTooltip>
+                            <AbbrevTooltip title="Turnovers" id="TOV">TO</AbbrevTooltip>
+                            <AbbrevTooltip title="Points per game" id="PTS">PPG</AbbrevTooltip>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +75,7 @@ function Player({ playerName }) {
                                 <th>{(stat?.ft_percent * 100).toFixed(1)}</th>
                                 <th>{(stat?.ORB / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.DRB / stat?.games).toFixed(1)}</th>
-                                <th>{(stat?.AST / stat?.games).toFixed(1)}</th>
+                                <th>{((stat?.ORB + stat?.DRB) / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.AST / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.BLK / stat?.games).toFixed(1)}</th>
                                 <th>{(stat?.STL / stat?.games).toFixed(1)}</th>
@@ -82,7 +87,7 @@ function Player({ playerName }) {
                     </tbody>
                 </Table>
             </div>
-            <LineChart pData={playerData} />
+            <LineChart pData={playerData} category={graphData} />
         </div>
     )
 }
