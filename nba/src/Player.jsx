@@ -5,6 +5,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import LineChart from './LineChart'
 import './Player.css'
+import PlayerTable from './PlayerTable';
 
 
 function Player({ playerName }) {
@@ -13,6 +14,7 @@ function Player({ playerName }) {
     const [graphData, setGraphData] = useState([])
     const [graphSwitch, setGraphSwitch] = useState(false)
     const [hideChart, setHideChart] = useState(true)
+    const [hideTable, setHideTable] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +41,9 @@ function Player({ playerName }) {
         <div>
             <h3 className="text-center">{playerName.toUpperCase()} / {playerTeam}</h3>
             <div className="stats">
-                <div className="border rounded px-3 pt-3" id="statsTable">
+                <button onClick={() => setHideTable(!hideTable)}>TABLE</button>
+                {hideTable ? undefined : <PlayerTable fetchedPData={playerData} />}
+                {/* <div className="border rounded px-3 pt-3" id="statsTable">
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -88,9 +92,9 @@ function Player({ playerName }) {
                             ))}
                         </tbody>
                     </Table>
-                </div>
+                </div> */}
                 <button onClick={() => setHideChart(!hideChart)}>GRAPH</button>
-                {hideChart? undefined : <LineChart pData={playerData} category={graphData} sw={graphSwitch} />}
+                {hideChart ? undefined : <LineChart pData={playerData} category={graphData} sw={graphSwitch} />}
             </div>
         </div>
     )
