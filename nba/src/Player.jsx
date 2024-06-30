@@ -10,29 +10,28 @@ function Player({ playerName }) {
     const [playerData, setPlayerData] = useState([])
     const [playerTeam, setPlayerTeam] = useState('')
     const [graphData, setGraphData] = useState([])
+    const [graphSwitch, setGraphSwitch] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
             let firstRes = await axios.get(`https://nba-stats-db.herokuapp.com/api/playerdata/name/${playerName}`)
             setPlayerData(firstRes.data.results)
             setPlayerTeam(firstRes.data.results[0].team)
-            console.log(playerData)
         }
-        if(playerName) {
-        setPlayerData(null)
-        fetchData()
+        if (playerName) {
+            setPlayerData(null)
+            fetchData()
         }
     }, [playerName])
 
     const AbbrevTooltip = ({ id, children, title }) => (
         <OverlayTrigger delay={{ show: 100, hide: 200 }} overlay={<Tooltip id={id}>{title}</Tooltip>}>
-            <th onClick={() => {sendCatToGraph(id)}}>{children}</th>
+            <th onClick={() => {
+                setGraphData(id)
+                setGraphSwitch(!graphSwitch) // need to rethink this, temp solution
+            }}>{children}</th>
         </OverlayTrigger>
     )
-
-    const sendCatToGraph = (category) => {
-        setGraphData([...graphData, category])
-    }
 
     return (
         <div>
@@ -87,7 +86,7 @@ function Player({ playerName }) {
                     </tbody>
                 </Table>
             </div>
-            <LineChart pData={playerData} category={graphData} />
+            <LineChart pData={playerData} category={graphData} sw={graphSwitch}/>
         </div>
     )
 }
