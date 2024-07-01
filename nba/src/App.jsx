@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import LightDarkMode from './LightDarkMode'
+import NavSearch from './NavSearch'
 import LineChart from './LineChart'
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
 
     return (
         <>
+            <div className='Navbar'>
+                <NavSearch />
+            </div>
             <div className='title'>
                 <h1>NBA STATS GETTER</h1>
                 <LightDarkMode />
