@@ -49,8 +49,6 @@ function PlayerTable({ fetchedPData = null }) {
         backgroundColor : 'blue'
     }
 
-    console.log(Object.keys(displayCat))
-
     useEffect(() => {
         if (fetchedPData != null) {
             setPlayerData(fetchedPData)
