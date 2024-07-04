@@ -1,6 +1,5 @@
 import React from 'react'
 import { useOutletContext } from 'react-router-dom'
-import PlayerTable from '../StatsFetch/PlayerTable'
 
 function StatsCompare() {
     const { compare, setCompare } = useOutletContext()

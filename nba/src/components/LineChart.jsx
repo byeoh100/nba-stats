@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Line } from 'react-chartjs-2'
 
-function LineChart({ pData = [], category, sw }) {
+function LineChart({ pData = null, category }) {
     const [pLabel, setPLabel] = useState([])
     const [pDataset, setPDataset] = useState([])
 
-    console.log(pData.map((stat) => stat.Season))
+    const chartRef = useRef(null)
+    chartRef.current.update()
 
     useEffect(() => {
-        if (pData != null && category.length > 0) {
+        if (pData != null || category.length > 0) {
             setPLabel(pData.map((stat) => stat.Season).reverse())
-
             let updateActive = category.map((cat) => {
                 let color = `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`
                 return {
@@ -21,16 +21,16 @@ function LineChart({ pData = [], category, sw }) {
                     backgroundColor: color
                 }
             })
-
             setPDataset(updateActive)
         }
         else {
+            setPLabel([])
             setPDataset([])
         }
-    }, [pData, category, sw])
+    }, [pData, category])
 
     return (
-        <Line
+        <Line ref={chartRef}
             data={{
                 labels: pLabel,
                 datasets: [...pDataset],
