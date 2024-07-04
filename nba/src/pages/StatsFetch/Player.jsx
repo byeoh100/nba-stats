@@ -5,6 +5,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import LineChart from '../../components/LineChart'
 import './Player.css'
 import PlayerTable from './PlayerTable';
+import { useOutletContext } from 'react-router-dom';
 
 
 function Player({ playerName }) {
@@ -12,8 +13,9 @@ function Player({ playerName }) {
     const [playerTeam, setPlayerTeam] = useState('')
     const [activeCat, setActiveCat] = useState([])
     const [hideChart, setHideChart] = useState(true)
-    const [hideTable, setHideTable] = useState(false)
     const [formattedData, setFormattedData] = useState([])
+
+    const { compare, setCompare } = useOutletContext()
 
     console.log(activeCat)
 
@@ -61,12 +63,21 @@ function Player({ playerName }) {
         }
     }, [playerName])
 
+    const addToCompare = () => {
+        if (compare.includes(formattedData)){
+            return
+        }
+        else {
+            setCompare([...compare, formattedData])
+        }
+    }
+
     return (
         <div>
             <h3 className="text-center">{playerName.toUpperCase()} / {playerTeam}</h3>
+            <button onClick={addToCompare}>Add to compare chart</button>
             <div className="stats">
-                <button onClick={() => setHideTable(!hideTable)}>TABLE</button>
-                {hideTable ? undefined : <PlayerTable fetchedPData={formattedData} setACat={setActiveCat} ACat={activeCat}/>}
+                <PlayerTable fetchedPData={formattedData} setACat={setActiveCat} ACat={activeCat}/>
                 <button onClick={() => setHideChart(!hideChart)}>GRAPH</button>
                 {hideChart ? undefined : <LineChart pData={formattedData} category={activeCat} />}
             </div>

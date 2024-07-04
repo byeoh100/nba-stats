@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import StatsFetch from './pages/StatsFetch/StatsFetch'
+import { Outlet } from 'react-router-dom'
 
 function App() {
+    const [compare, setCompare] = useState([])
 
     return (
         <>
-            <StatsFetch />
+            <Outlet context={{ compare, setCompare }} />
         </>
     )
 }

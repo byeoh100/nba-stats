@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-function PlayerTable({ fetchedPData = null, setACat, ACat }) {
+function PlayerTable({ fetchedPData = null, setACat = null, ACat = [] }) {
     const [playerData, setPlayerData] = useState(null)
     const [cats, setCats] = useState([])
 
