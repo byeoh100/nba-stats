@@ -64,18 +64,18 @@ function Player({ playerName }) {
     }, [playerName])
 
     const addToCompare = () => {
-        if (compare.includes(formattedData)){
-            return
+        if (compare.includes(playerName)){
+            setCompare(compare.filter((p) => p != playerName))
         }
         else {
-            setCompare([...compare, formattedData])
+            setCompare([...compare, playerName])
         }
     }
 
     return (
         <div>
             <h3 className="text-center">{playerName.toUpperCase()} / {playerTeam}</h3>
-            <button onClick={addToCompare}>Add to compare chart</button>
+            <button onClick={addToCompare}>{compare.includes(playerName) ? "Remove from compare" : "Add to compare"}</button>
             <div className="stats">
                 <PlayerTable fetchedPData={formattedData} setACat={setActiveCat} ACat={activeCat}/>
                 <button onClick={() => setHideChart(!hideChart)}>GRAPH</button>

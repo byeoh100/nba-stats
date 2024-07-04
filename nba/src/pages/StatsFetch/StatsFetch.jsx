@@ -3,7 +3,6 @@ import Player from './Player'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
-import LightDarkMode from '../../components/LightDarkMode'
 
 function StatsFetch() {
     const [reqPlayerName, setReqPlayerName] = useState('')
@@ -17,7 +16,6 @@ function StatsFetch() {
         <>
             <div className='title'>
                 <h1>NBA STATS GETTER</h1>
-                <LightDarkMode />
             </div>
             <div className="main">
                 <form onSubmit={handleSubmit}>
