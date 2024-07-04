@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import LineChart from './LineChart'
+import LineChart from '../../components/LineChart'
 import './Player.css'
 import PlayerTable from './PlayerTable';
 
