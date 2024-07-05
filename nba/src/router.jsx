@@ -14,7 +14,7 @@ const router = createBrowserRouter([
                 element: <StatsFetch />
             },
             {
-                path: "/compare-stats",
+                path: "compare-stats",
                 element: <StatsCompare />
             }
         ],
