@@ -34,7 +34,7 @@ function Player({ playerName }) {
         "STL": "STL",
         "PF": "PF",
         "TOV": "TOV",
-        "PTS": "PPG"
+        "PTS": "PTS"
     }
 
     useEffect(() => {
@@ -76,11 +76,11 @@ function Player({ playerName }) {
     }, [playerName])
 
     const addToCompare = () => {
-        if (compare.includes(playerName)) {
-            setCompare(compare.filter((p) => p != playerName))
+        if (compare.includes(playerData)) {
+            setCompare(compare.filter((p) => p != playerData))
         }
         else {
-            setCompare([...compare, playerName])
+            setCompare([...compare, playerData])
         }
     }
 

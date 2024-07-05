@@ -1,5 +1,6 @@
 import React from 'react'
 import { useOutletContext } from 'react-router-dom'
+import PlayerTable from '../../components/PlayerTable'
 
 function StatsCompare() {
     const { compare, setCompare } = useOutletContext()
@@ -10,8 +11,8 @@ function StatsCompare() {
         <>
             <h1>COMPARE PLAYER STATS</h1>
             <button onClick={() => setCompare([])}>Clear player list</button>
-            {compare.map((player, i) => (
-                <h5 key={i}>{player}</h5>
+            {compare.map((playerData, i) => (
+                <PlayerTable fetchedPData={playerData} />
         ))}
         </>
     )

@@ -22,7 +22,7 @@ function PlayerTable({ fetchedPData = null }) {
         "FGA": "Field goal attempts",
         "FG%": "Field goal percentage",
         "3P": "Three pointers made",
-        "3PA": "Three pointer attempts",
+        "3PA": "Three point attempts",
         "3P%": "Three point percentage",
         "FT": "Free throws made",
         "FTA": "Free throw attempts",
@@ -34,7 +34,7 @@ function PlayerTable({ fetchedPData = null }) {
         "STL": "Steals",
         "PF": "Personal fouls",
         "TOV": "Turnovers",
-        "PPG": "Points per game"
+        "PTS": "Points"
     }
 
     useEffect(() => {

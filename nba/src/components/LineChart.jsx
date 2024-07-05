@@ -7,7 +7,10 @@ function LineChart({ pData = null, category }) {
     const [pDataset, setPDataset] = useState([])
 
     const chartRef = useRef(null)
-    chartRef.current.update()
+
+    if (chartRef.current != null) {
+        chartRef.current.update()
+    }
 
     useEffect(() => {
         if (pData != null || category.length > 0) {
