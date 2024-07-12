@@ -13,7 +13,7 @@ function NavSearch() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand href="#">NBA STATS</Navbar.Brand>
+                <Navbar.Brand href="/">NBA STATS</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -21,9 +21,8 @@ function NavSearch() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
                         <NavDropdown title="Stats" id="navbarScrollingDropdown">
-                            <NavDropdown.Item as={Link} to="/">Get Player Stats</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/get-stats">Get Player Stats</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/compare-stats">Compare Stats</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action5">
