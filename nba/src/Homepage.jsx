@@ -1,31 +1,37 @@
 import './Homepage.css';
 import logo from './assets/nba-logo.png';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import SearchBar from './components/SearchBar';
+import SampleDashboard from './components/SampleDashboard';
+import CommunityInsightsSample from './components/CommunityInsightsSample';
+import Footer from './components/Footer';
 
 function Homepage() {
 
-    
+
     let History = useNavigate();
-    
+
     const handleClick = () => {
-        History ("/get-stats");
+        History("/get-stats");
     }
 
 
     return (
         <div className="home-page">
-            <div className="header">
-                <img src={logo} alt="NBA Logo" className="logo" />
-                <h1>NBA Stats Tracker</h1>
-            </div>
-            <div className="description">
-                <p>Welcome to the ultimate NBA Stats Tracker. Keep up with your favorite teams and players, track live game stats, and dive deep into historical data.</p>
+            <div>
+                <SearchBar />
             </div>
             <div className="call-to-action">
-                <button  onClick={handleClick}>Get Started</button>
+                {/* <button  onClick={handleClick}>Get Started</button> */}
+            </div>
+            <div>
+                <SampleDashboard />
+            </div>
+            <div>
+                <CommunityInsightsSample />
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );
